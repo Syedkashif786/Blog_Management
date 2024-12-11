@@ -1,0 +1,17 @@
+<!-- views/editUser.ejs -->
+<%- include('layout', { title: 'Edit Blog' }) %>
+<div class="container">
+    <h1>Edit Blog</h1>
+    <form action="/blogs/<%= blog.id %>/update" method="POST">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="<%= blog.title %>" required>
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">Content</label>
+            <input type="content" class="form-control" id="content" name="content" value="<%= blog.content %>" required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>

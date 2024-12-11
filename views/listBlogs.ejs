@@ -1,0 +1,50 @@
+<!-- views/listBlogs.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Blog Management</a> 
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users">Users</a>
+                    </li>
+                    <!-- Add more navigation links as needed -->
+                </ul>
+            </div>
+        </div>  
+        <div class="d-flex">
+            <!-- <button type="button" class="btn btn-primary px-3 me-2">
+              Login
+            </button> -->
+            <a href="/login">
+                <button type="button" class="btn btn-primary btn-sm me-3">
+                    Logout
+                </button>
+            </a>
+    </div>
+</nav>
+
+<h1>Blog List</h1>
+<% blogs.forEach(blog => { %>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h6 class="text-success">User Id - <%= blog.userId %></h6>
+            <h5 class="card-title"><%= blog.title %></h5>
+            <p class="card-text"><%= blog.content %></p>
+            <a href="/blogs/edit/<%= blog.id %>" class="btn btn-primary btn-sm">Edit</a>
+            <a href="/blogs/delete/<%= blog.id %>" class="btn btn-danger btn-sm">Delete</a>
+        </div>
+    </div>
+<% }); %>
