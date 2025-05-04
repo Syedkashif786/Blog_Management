@@ -15,9 +15,13 @@ const Blog = db.define('Blog', {
   userId: {
     type: DataTypes.INTEGER,
     allowNull: false
+  }},
+  {
+    timestamps: true
   }
-});
+);
 
-Blog.belongsTo(User, { foreignKey: 'userId' });
+Blog.belongsTo(User, { foreignKey: 'userId', onDelete: 'CASCADE' });
+User.hasMany(Blog, {foreignKey: 'userId'});
 
 module.exports = Blog;

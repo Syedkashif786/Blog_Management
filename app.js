@@ -40,11 +40,13 @@ app.get('/', (req, res) => {
 
 // Define a route for the login page
 app.get('/login', (req, res) => {
-  res.render('login');
+  res.clearCookie('token');
+  res.redirect('/auth/login');
 });
 
 app.get('/register', (req,res)=>{
-  res.render('register');
+  res.clearCookie('token');
+  res.redirect('/auth/register');
 })
 
 const PORT = process.env.PORT;

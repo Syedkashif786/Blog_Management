@@ -3,16 +3,12 @@
 <h1>Add Blog</h1>
 <form action="/blogs/add" method="POST">
     <div class="mb-3">
-        <label for="userId" class="form-label">User Id</label>
-        <input type="number" class="form-control" id="userId" name="userId">
-    </div>
-    <div class="mb-3">
         <label for="title" class="form-label">Title</label>
-        <input type="text" class="form-control" id="title" name="title">
+        <input type="text" class="form-control" id="title" name="title" required>
     </div>
     <div class="mb-3">
         <label for="content" class="form-label">Content</label>
-        <textarea class="form-control" id="content" name="content" rows="6"></textarea>
+        <textarea class="form-control" id="content" name="content" rows="6" required></textarea>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
