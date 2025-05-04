@@ -4,12 +4,15 @@ const express = require('express');
 const db = require('./config/db');
 require('dotenv').config()
 
+
 // Import routes
 const authRoutes = require('./routes/authRoutes'); // Include authentication routes
 const userRoutes = require('./routes/userRoutes');
 const blogRoutes = require('./routes/blogRoutes');
 
 const app = express();
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
 // Connect to MySQL database
 db.authenticate()

@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 const User = require('../models/User');
 
+
 // Register a new user
 exports.register = async (req, res) => {
   // Validate user input
@@ -32,18 +33,27 @@ exports.register = async (req, res) => {
     // Generate JWT token
     const payload = {
       user: {
-        id: user.id
+        email: user.email
       }
     };
 
-    jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
-      if (err) throw err;
-      res.json({ token });
-
-    });
+    jwt.sign(payload, process.env.JWT_SECRET,{expiresIn: '1hr'}, (err,token)=>{
+          if(err){
+            throw err;
+          }else{
+            console.log({token});
+            // res.status(200).json({user, token});
+            res.cookie('token', token, {
+            httpOnly: true,
+            secure: false, // true if using HTTPS
+            sameSite: 'Lax' // or 'Strict'
+            });
+            res.redirect('/users');
+          }
+        })
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Internal Server Error');
   }
 };
 
@@ -55,7 +65,7 @@ exports.login = async (req, res) => {
     // Check if user exists
     let user = await User.findOne({ where: { email } });
     if (!user) {
-      return res.status(400).json({ msg: 'Invalid credentials' });
+      return res.status(400).json({ msg: 'User not found' });
     }
 
     // Verify password
@@ -67,17 +77,24 @@ exports.login = async (req, res) => {
     // Generate JWT token
     const payload = {
       user: {
-        id: user.id
+        email: user.email
       }
     };
 
     jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
       if (err) throw err;
-      // res.json({ token });
+      console.log({token});
+      // res.status(200).json({user, token});
+      res.cookie('token', token, {
+        httpOnly: true,
+        secure: false, // true if using HTTPS
+        sameSite: 'Lax' // or 'Strict'
+      });
       res.redirect('/users');
+      // res.render('listUsers', {user});
     });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Internal Server Error');
   }
 };
